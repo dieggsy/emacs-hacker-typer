@@ -1,12 +1,12 @@
-;;; emacs-hacker-typer.el --- hacker-typer for emacs
+;;; hacker-typer.el --- hacker-typer for emacs
 
 ;; Copyright (C) 2017 by Diego A. Mundo
 ;; Author: Diego A. Mundo <diegoamundo@gmail.com>
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 0.1.0
-;; Keywords: hacker typer type
+;; Version: 0.1.1
+;; Keywords: hacker typer multimedia games
 
 ;; This file is not part of GNU Emacs.
 
@@ -32,7 +32,7 @@
 ;;; Code:
 
 (defcustom hacker-typer-show-hackerman nil
-  "If t, show hackerman on calling `hacker-typer'"
+  "If t, show hackerman on calling `hacker-typer'."
   :group 'hacker-typer
   :type 'boolean)
 
@@ -44,12 +44,11 @@
           (make-directory (var "hacker-typer/" no-littering-var-directory) t)
           (var "hacker-typer/" no-littering-var-directory))
       (var "hacker-typer/" user-emacs-directory)))
-  "Directory in which to store hacker-typer files.
+  "Directory in which to store ‘hacker-typer’ files.
 
 If no-littering is installed, defaults to
 no-littering-var-directory/hacker-typer. Otherwise, defaults to
-~/.emacs.d/hacker-typer.
-"
+~/.emacs.d/hacker-typer."
   :group 'hacker-typer
   :type 'string)
 
@@ -60,8 +59,7 @@ If set to an integer, types that many characters per keystroke.
 
 If set to 'random (default), types between 3-6 characters, with
 the exact number chosen at random. See
-`hacker-typer-random-range' to customize this range.
-"
+`hacker-typer-random-range' to customize this range."
 
   :group 'hacker-typer
   :type '(choice
@@ -69,11 +67,11 @@ the exact number chosen at random. See
           (integer :tag "Fixed" 5)))
 
 (defcustom hacker-typer-random-range '(3 6)
-  "If `hacker-typer-type-rate' is set to 'random, the range from
-which to select how many characters will be typed at each
-keystroke (with the first element being the min value, the second
-being the max).
-"
+  "Range for `hacker-typer-typer-rate' when set to 'random.
+
+The range from which to select how many characters will be typed
+at each keystroke (with the first element being the min value,
+the second being the max)."
   :group 'hacker-typer
   :type '(list integer integer))
 
@@ -83,23 +81,20 @@ being the max).
     "https://raw.githubusercontent.com/emacs-mirror/emacs/master/src/w32font.c"
     "https://raw.githubusercontent.com/emacs-mirror/emacs/master/lib-src/ebrowse.c"
     "https://raw.githubusercontent.com/emacs-mirror/emacs/master/lwlib/xlwmenu.c")
-  "A list of files for hacker-typer to randomly choose from.
+  "A list of files for ‘hacker-typer’ to randomly choose from.
 
 Can be web urls that point directly to files, or local files of
-the form: file:///absolute/path/to/file
-"
+the form: file:///absolute/path/to/file"
   :group 'hacker-typer
   :type '(repeat string))
 
 (defcustom hacker-typer-remove-comments nil
-  "If set to t, remove comments from files. This is done using
-`comment-kill'.
-"
+  "If set to t, remove comments from files. This is done using `comment-kill'."
   :group 'hacker-typer
   :type 'boolean)
 
 (defvar hacker-typer-map (make-sparse-keymap)
-  "hacker-typer key map")
+  "Hacker-typer key map.")
 
 (defvar hacker-typer--start 0)
 
@@ -121,8 +116,7 @@ prepended.
 If `hacker-typer-show-hackerman' is set to t, also show an
 amusing picture of Rami Malek as \"hackerman\".
 
-With prefix argument ARG, prompt for a file to type.
-"
+With prefix argument ARG, prompt for a file to type."
   (interactive "P")
   (let* ((hack-file (if arg (read-file-name "Choose file: ")
                       (hacker-typer--choose-file)))
@@ -134,7 +128,7 @@ With prefix argument ARG, prompt for a file to type.
                        hacker-typer-type-rate)))
     ;; show hackerman if var set
     (when hacker-typer-show-hackerman
-      (hackerman nil))
+      (hacker-typer-hackerman nil))
     ;; delete previous hacker typer buffer if exists
     (when (and hacker-typer--previous-buffer
                (get-buffer hacker-typer--previous-buffer))
@@ -179,9 +173,8 @@ With prefix argument ARG, prompt for a file to type.
   (delete-other-windows))
 
 ;;;###autoload
-(defun hackerman (arg)
-  "
-⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⢀⣀⣀⣀⣀⢀⡀⣀⣀⢀⡀⣀⢀⣀⣀⢀⢀⢀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀
+(defun hacker-typer-hackerman (arg)
+  "⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⢀⣀⣀⣀⣀⢀⡀⣀⣀⢀⡀⣀⢀⣀⣀⢀⢀⢀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣻⣻⣯⢷⢺⣻⣟⢻⣟⣻⡟⣯⢻⣾⢟⢿⢺⣟⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢽⣻⣵⠞⠌⣁⣬⣬⣬⣫⣮⣭⡯⡗⢭⢽⢻⣟⢯⢯⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣟⢟⡞⢀⣤⣾⣿⣿⣿⣿⠿⢿⣶⣹⢹⡽⡻⣹⢺⢽⣯⢾⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
@@ -211,8 +204,7 @@ With prefix argument ARG, prompt for a file to type.
 ⣗⡀⣐⣿⡃⣀⠀⢀⣠⣶⣾⣆⠀⣠⣀⣀⠀⡀⣀⢀⣀⣧⡀⡀⣘⣄⢀⣀⢀⢀⣆⣀⣸⣿⣀⡀⢈⣀⢀⣃⣀⢠⡆⣀⢀⠀⡀⠶⣶⡀⡀⢘⢀⣀⡿⣄⡀⢀⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠄⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿
-"
+⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠄⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿"
   (interactive "P")
   (let ((hacker-file (concat hacker-typer-data-dir "hackerman.png"))
         (inhibit-message t))
@@ -236,7 +228,7 @@ With prefix argument ARG, prompt for a file to type.
 
 ;; utils
 (defun hacker-typer--insert-contents (filename)
-  "Insert contents from selected file into hacker-typer buffer."
+  "Insert contents from FILENAME into hacker-typer buffer."
   (let* ((rate-range (apply 'number-sequence hacker-typer-random-range))
          (inc-amount (if (eq hacker-typer-type-rate 'random)
                          (elt rate-range (random (length rate-range)))
@@ -247,7 +239,7 @@ With prefix argument ARG, prompt for a file to type.
     (setq hacker-typer--end (+ hacker-typer--start inc-amount))))
 
 (defun hacker-typer--set-mode (buffer-name)
-  "Set major mode for hacker-typer buffer based on buffer extension."
+  "Set major mode for hacker-typer buffer named BUFFER-NAME based on buffer extension."
   (let ((name buffer-name)
         (case-insensitive-p (file-name-case-insensitive-p
                              buffer-name))
@@ -316,3 +308,8 @@ With prefix argument ARG, prompt for a file to type.
       hacker-file)))
 
 (provide 'hacker-typer)
+;;; hacker-typer.el ends here.
+
+(provide 'hacker-typer)
+
+;;; hacker-typer.el ends here
