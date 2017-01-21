@@ -1,0 +1,91 @@
+#+Title: emacs-hacker-typer
+
+A customizable implementation of [[http://hackertyper.com][hackertyper.com]] in emacs.
+
+* Usage
+Type ~M-x hacker-typer~ and get hacking! Or use ~C-u M-x hacker-typer~ to be
+prompted about the file to use.
+
+Or, if you'd just like a hacker companion, you can type ~M-x hackerman~ or ~C-u
+M-x hackerman~ for single-window.
+
+If you'd like to see hackerman when invoking ~M-x hacker-typer~, set
+~hacker-typer-show-hackerman~ to ~t~. See more [[Customization][customization options]] below.
+
+You can quit with your ~keyboard-quit~ binding or ~M-x hacker-typer-quit~.
+
+You can clear downloaded data with ~M-x hacker-typer-clear-cache~.
+
+*NOTE:* None of your files are altered.
+
+* Installation
+Download the files to somewhere on your load path, and enable hacker-typer:
+#+begin_src emacs-lisp
+(require 'hacker-typer)
+#+end_src
+
+Alternatively, using [[https://github.com/quelpa/quelpa][quelpa]]:
+#+begin_src emacs-lisp
+(quelpa '(hacker-typer :fetcher github
+                       :repo "therockmandolinist/emacs-hacker-typer"))
+#+end_src
+
+Or [[https://github.com/quelpa/quelpa-use-package][quelpa-use-package]]:
+#+begin_src emacs-lisp
+(use-package hacker-typer
+  :quelpa (hacker-typer :fetcher github
+                        :repo "therockmandolinist/emacs-hacker-typer"))
+#+end_src
+
+* How it works
+
+~M-x hacker-typer~ randomly selects a file from ~hacker-typer-files~ (or prompts
+for one if given a prefix argument) downloading it if necessary, and creates a
+blank buffer with the name of that file (with random characers prepended). It
+then creates a local map in which all insert, delete, and enter commands are
+rebound to insert pieces of the file according to ~hacker-typer-type-rate~.
+
+~M-x hackerman~ displays an humorous image of Rami Malek as "hackerman.",
+(downloading as necessary) by inserting the file path into a temporary
+buffer and calling ~iimage-mode~.
+
+* Customization
+Type ~M-x customize-group hacker-typer RET~ to view all customization options.
+
+They are the following:
+
+** ~hacker-typer-files~
+A list of files to randomly select from.
+
+Can be web urls that point directly to files, or local files of the form:
+file:///absolute/path/to/file.
+
+** ~hacke-typer-remove-comments~
+If set to ~t~, remove comments from files. For now, this only works without
+prefix argument, i.e. when using a file from ~hacker-typer-files~.
+
+** ~hacker-typer-show-hackerman~
+If set to ~t~, shaw hackerman when calling ~M-x hacker-typer~.
+
+** ~hacker-typer-type-rate~
+How many characters to type out per keystroke. Can be set to:
+ - ~'random~ (default): each keystroke inserts N characters, where N is randomly
+   selected from ~hacker-typer-random-range~.
+ - integer: types out this many characters per keystroke.
+
+** ~hacker-typer-random-range~
+Range from which to choose chararcters to type per keystroke if
+~hacker-typer-type-rate~ is set to ~'random~.
+
+** ~hacker-typer-data-dir~
+The directory in which to store data for hacker-typer. If [[https://github.com/tarsius/no-littering][no-littering]] is
+installed, it defaults to ~hacker-typer/~ under ~no-littering-var-directory~,
+otherwise placing the folder under ~user-emacs-directory~.
+
+* Todo
+
+ - It's possible I should use ~image-mode~ to directly open the hackerman file
+   instead, but I'm not sure how to do that with a temporary buffer and I like
+   that temp buffers quit easily (at least, with evil-mode).
+
+ - Somewhat relatedly, it would be nice to resize the hackerman image.
