@@ -49,6 +49,18 @@ rebound to insert pieces of the file according to ~hacker-typer-type-rate~.
 (downloading as necessary) by inserting the file path into a temporary
 buffer and calling ~iimage-mode~.
 
+*NOTE:* Modes that get could get in the way are turned off if bound, so let me
+know if you have more suggestions for these. The current list:
+
+ - agressive-indent-mode
+ - smartparens-mode
+ - evil-smartparens-mode
+
+Similarly, there are some special insert/delete commands that may need to be
+rebound. This is the current list:
+
+ - sp-backward-delete-char
+
 ** Customization
 Type ~M-x customize-group hacker-typer RET~ to view all customization options.
 
