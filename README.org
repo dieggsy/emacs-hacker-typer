@@ -3,18 +3,18 @@
 A customizable implementation of [[http://hackertyper.com][hackertyper.com]] in emacs.
 
 * Usage
-Type ~M-x hacker-typer~ and get hacking! Or use ~C-u M-x hacker-typer~ to be
-prompted about the file to use.
+ - Type ~M-x hacker-typer~ and get hacking! Or use ~C-u M-x hacker-typer~ to be
+   prompted about the file to use.
 
-Or, if you'd just like a hacker companion, you can type ~M-x hackerman~ or ~C-u
-M-x hackerman~ for single-window.
+ - Or, if you'd just like a hacker companion, you can type ~M-x hackerman~ or ~C-u
+   M-x hackerman~ for single-window.
 
-If you'd like to see hackerman when invoking ~M-x hacker-typer~, set
-~hacker-typer-show-hackerman~ to ~t~. See more [[Customization][customization options]] below.
+ - If you'd like to see hackerman when invoking ~M-x hacker-typer~, set
+   ~hacker-typer-show-hackerman~ to ~t~. See more [[Customization][customization options]] below.
 
-You can quit with your ~keyboard-quit~ binding or ~M-x hacker-typer-quit~.
+ - You can quit with your ~keyboard-quit~ binding or ~M-x hacker-typer-quit~.
 
-You can clear downloaded data with ~M-x hacker-typer-clear-cache~.
+ - You can clear downloaded data with ~M-x hacker-typer-clear-cache~.
 
 *NOTE:* None of your files are altered.
 
