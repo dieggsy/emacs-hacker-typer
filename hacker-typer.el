@@ -5,7 +5,7 @@
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 0.1.3
+;; Version: 0.1.4
 ;; Keywords: hacker typer multimedia games
 
 ;; This file is not part of GNU Emacs.
