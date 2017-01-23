@@ -308,8 +308,5 @@ With prefix argument ARG, prompt for a file to type."
       hacker-file)))
 
 (provide 'hacker-typer)
-;;; hacker-typer.el ends here.
-
-(provide 'hacker-typer)
 
 ;;; hacker-typer.el ends here
