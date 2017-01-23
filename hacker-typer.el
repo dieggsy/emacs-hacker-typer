@@ -241,8 +241,6 @@ With prefix argument ARG, prompt for a file to type."
 (defun hacker-typer--set-mode (buffer-name)
   "Set major mode for hacker-typer buffer named BUFFER-NAME based on buffer extension."
   (let ((name buffer-name)
-        (case-insensitive-p (file-name-case-insensitive-p
-                             buffer-name))
         (mode nil))
     ;; Remove backup-suffixes from file name.
     (setq name (file-name-sans-versions name))
@@ -250,22 +248,17 @@ With prefix argument ARG, prompt for a file to type."
     (while name
       ;; Find first matching alist entry.
       (setq mode
-            (if case-insensitive-p
-                ;; Filesystem is case-insensitive.
-                (let ((case-fold-search t))
-                  (assoc-default name auto-mode-alist
-                                 'string-match))
-              ;; Filesystem is case-sensitive.
-              (or
-               ;; First match case-sensitively.
-               (let ((case-fold-search nil))
-                 (assoc-default name auto-mode-alist
-                                'string-match))
-               ;; Fallback to case-insensitive match.
-               (and auto-mode-case-fold
-                    (let ((case-fold-search t))
-                      (assoc-default name auto-mode-alist
-                                     'string-match))))))
+            ;; Filesystem is case-sensitive.
+            (or
+             ;; First match case-sensitively.
+             (let ((case-fold-search nil))
+               (assoc-default name auto-mode-alist
+                              'string-match))
+             ;; Fallback to case-insensitive match.
+             (and auto-mode-case-fold
+                  (let ((case-fold-search t))
+                    (assoc-default name auto-mode-alist
+                                   'string-match)))))
       (if (and mode
                (consp mode)
                (cadr mode))
