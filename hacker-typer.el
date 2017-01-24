@@ -118,7 +118,9 @@ amusing picture of Rami Malek as \"hackerman\".
 
 With prefix argument ARG, prompt for a file to type."
   (interactive "P")
-  (let* ((hack-file (if arg (read-file-name "Choose file: ")
+  (let* ((hack-file (if arg
+                        (hacker-typer--chose-file
+                         (read-file-name "Choose file: "))
                       (hacker-typer--choose-file)))
          (hacker-typer-buffer-name (file-name-nondirectory hack-file))
          (mycharset "0123456789abcdefghijklmnopqrstuvwxyz")
@@ -268,17 +270,19 @@ With prefix argument ARG, prompt for a file to type."
       (when mode
         (set-auto-mode-0 mode 'keep-mode-if-same)))))
 
-(defun hacker-typer--choose-file ()
+(defun hacker-typer--choose-file (&optional filename)
   "Randomly choose file from `hacker-typer-files', downloading if necessary."
-  (let* ((file-url (elt hacker-typer-files
-                        (random (length hacker-typer-files))))
+  (let* ((file-url (if filename
+                       (concat "file://" (expand-file-name filename))
+                     (elt hacker-typer-files
+                          (random (length hacker-typer-files)))))
          (base-name (file-name-nondirectory file-url))
          (base-name-nc (concat "no-comment-" base-name))
          (hacker-file (concat hacker-typer-data-dir base-name))
          (hacker-file-nc (concat hacker-typer-data-dir base-name-nc))
          (inhibit-redisplay t))
     ;; If file doesn't exist, get it
-    (unless (file-exists-p hacker-file)
+    (unless (or hacker-typer-remove-comments (file-exists-p hacker-file))
       (url-copy-file file-url hacker-file t))
     ;; If remove-comments is on and uncommented file doesn't exist, get it.
     (unless (or (not hacker-typer-remove-comments)
