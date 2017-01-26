@@ -7,6 +7,7 @@
 ;; Created: 2016-01-20
 ;; Version: 0.1.4
 ;; Keywords: hacker typer multimedia games
+;; Package-Requires: ((cl-lib "0.5"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -31,6 +32,8 @@
 
 ;;; Code:
 
+(require 'cl-lib)
+
 (defcustom hacker-typer-show-hackerman nil
   "If t, show hackerman on calling `hacker-typer'."
   :group 'hacker-typer
@@ -39,7 +42,7 @@
 (defcustom hacker-typer-data-dir
   (cl-flet ((var (file dir) (expand-file-name (convert-standard-filename file)
                                               dir)))
-    (if (require 'no-littering)
+    (if (require 'no-littering nil t)
         (progn
           (make-directory (var "hacker-typer/" no-littering-var-directory) t)
           (var "hacker-typer/" no-littering-var-directory))
