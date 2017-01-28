@@ -1,11 +1,11 @@
-;;; hacker-typer.el --- hacker-typer for emacs
+;;; hacker-typer.el --- Pretend to write code like a pro
 
 ;; Copyright (C) 2017 by Diego A. Mundo
 ;; Author: Diego A. Mundo <diegoamundo@gmail.com>
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 0.1.4
+;; Version: 0.1.5
 ;; Keywords: hacker typer multimedia games
 ;; Package-Requires: ((cl-lib "0.5"))
 
@@ -26,9 +26,6 @@
 
 
 ;;; Commentary:
-
-;; Something something
-
 
 ;;; Code:
 
