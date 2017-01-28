@@ -124,7 +124,7 @@ amusing picture of Rami Malek as \"hackerman\".
 With prefix argument ARG, prompt for a file to type."
   (interactive "P")
   (let* ((hack-file (if arg
-                        (hacker-typer--chose-file
+                        (hacker-typer--choose-file
                          (read-file-name "Choose file: "))
                       (hacker-typer--choose-file)))
          (hacker-typer-buffer-name (file-name-nondirectory hack-file))
