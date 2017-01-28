@@ -210,7 +210,7 @@ With prefix argument ARG, prompt for a file to type."
         (inhibit-message t))
     ;; If file doesn't exist, get it.
     (unless (file-exists-p hacker-file)
-      (url-copy-file "http://i.imgur.com/hpV2qGim.png" hacker-file t))
+      (url-copy-file "http://i.imgur.com/hpV2qGil.png" hacker-file t))
     ;; Print file url to buffer and turn on iimage-mode
     (with-output-to-temp-buffer "*hackerman*"
       (princ (concat "file://" hacker-file)))
