@@ -228,6 +228,13 @@ With prefix argument ARG, prompt for a file to type."
       (other-window 1)
       (delete-other-windows))))
 
+;;;###autoload
+(defun hacker-typer-clear-cache ()
+  (interactive)
+  (dolist (f (directory-files hacker-typer-data-dir t))
+    (unless (file-directory-p f)
+      (delete-file f))))
+
 ;; utils
 (defun hacker-typer--insert-contents (filename)
   "Insert contents from FILENAME into hacker-typer buffer."
