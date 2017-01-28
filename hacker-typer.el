@@ -7,7 +7,7 @@
 ;; Created: 2016-01-20
 ;; Version: 0.1.5
 ;; Keywords: hacker typer multimedia games
-;; Package-Requires: ()
+;; Package-Requires: ((async "20161103.1036"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -28,6 +28,8 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(require 'async)
 
 (defcustom hacker-typer-show-hackerman nil
   "If t, show hackerman on calling `hacker-typer'."
@@ -284,8 +286,7 @@ With prefix argument ARG, prompt for a file to type."
          (base-name (file-name-nondirectory file-url))
          (base-name-nc (concat "no-comment-" base-name))
          (hacker-file (concat hacker-typer-data-dir base-name))
-         (hacker-file-nc (concat hacker-typer-data-dir base-name-nc))
-         (inhibit-redisplay t))
+         (hacker-file-nc (concat hacker-typer-data-dir base-name-nc)))
     ;; If file doesn't exist, get it
     (unless (or hacker-typer-remove-comments (file-exists-p hacker-file))
       (url-copy-file file-url hacker-file t))
@@ -293,17 +294,19 @@ With prefix argument ARG, prompt for a file to type."
     (unless (or (not hacker-typer-remove-comments)
                 (file-exists-p hacker-file-nc))
       (url-copy-file file-url hacker-file-nc t)
-      (find-file hacker-file-nc)
       ;; remove comments
-      (goto-char (point-min))
-      (let (kill-ring)
-        (comment-kill (count-lines (point-min) (point-max))))
-      ;; remove awkward newlines
-      (goto-char (point-min))
-      (while (re-search-forward "\n\n+" nil t) (replace-match "\n\n"))
-      ;; save an dkill
-      (save-buffer)
-      (kill-buffer base-name-nc))
+      (async-start
+       (lambda ()
+         (find-file hacker-file-nc)
+         (goto-char (point-min))
+         (let (kill-ring)
+           (comment-kill (count-lines (point-min) (point-max))))
+         ;; remove awkward newlines
+         (goto-char (point-min))
+         (while (re-search-forward "\n\n+" nil t) (replace-match "\n\n"))
+         ;; save and kill
+         (save-buffer))
+       'ignore))
     ;; return appropriate file name.
     (if hacker-typer-remove-comments
         hacker-file-nc
