@@ -234,6 +234,9 @@ With prefix argument ARG, prompt for a file to type."
       (delete-other-windows))))
 
 ;;;###autoload
+(defalias 'hackerman 'hacker-typer-hackerman)
+
+;;;###autoload
 (defun hacker-typer-clear-cache ()
   (interactive)
   (dolist (f (directory-files hacker-typer-data-dir t))
