@@ -1,4 +1,5 @@
 * emacs-hacker-typer
+[[https://melpa.org/#/hacker-typer][file:https://melpa.org/packages/hacker-typer-badge.svg]]
 
 A customizable implementation of [[http://hackertyper.com][hackertyper.com]] in emacs.
 
@@ -19,22 +20,29 @@ A customizable implementation of [[http://hackertyper.com][hackertyper.com]] in 
 *NOTE:* None of your files are altered.
 
 ** Installation
-Download the files to somewhere on your load path, and enable hacker-typer:
+This package is on Melpa. To install using [[https://github.com/jwiegley/use-package][use-package]]:
 #+begin_src emacs-lisp
-(require 'hacker-typer)
+(use-package hacker-typer
+  :ensure t)
 #+end_src
 
-Alternatively, using [[https://github.com/quelpa/quelpa][quelpa]]:
+Alternatively, using [[https://github.com/quelpa/quelpa-use-package][quelpa-use-package]]:
+#+begin_src emacs-lisp
+(use-package hacker-typer
+  :quelpa (hacker-typer :fetcher github
+                        :repo "therockmandolinist/emacs-hacker-typer"))
+#+end_src
+
+Or [[https://github.com/quelpa/quelpa][quelpa]]:
 #+begin_src emacs-lisp
 (quelpa '(hacker-typer :fetcher github
                        :repo "therockmandolinist/emacs-hacker-typer"))
 #+end_src
 
-Or [[https://github.com/quelpa/quelpa-use-package][quelpa-use-package]]:
+Otherwise, download the files to somewhere on your load path, and enable
+hacker-typer:
 #+begin_src emacs-lisp
-(use-package hacker-typer
-  :quelpa (hacker-typer :fetcher github
-                        :repo "therockmandolinist/emacs-hacker-typer"))
+(require 'hacker-typer)
 #+end_src
 
 ** How it works
@@ -45,7 +53,7 @@ blank buffer with the name of that file (with random characers prepended). It
 then creates a local map in which all insert, delete, and enter commands are
 rebound to insert pieces of the file according to ~hacker-typer-type-rate~.
 
-~M-x hackerman~ displays an humorous image of Rami Malek as "hackerman.",
+~M-x hackerman~ displays an humorous image of Rami Malek as "hackerman,"
 (downloading as necessary) by inserting the file path into a temporary
 buffer and calling ~iimage-mode~.
 
@@ -67,21 +75,20 @@ Type ~M-x customize-group hacker-typer RET~ to view all customization options.
 They are the following:
 
 *** ~hacker-typer-files~
-A list of files to randomly select from.
+A list of files to randomly select from. Defaults to 5 emacs C source code files.
 
 Can be web urls that point directly to files, or local files of the form:
 file:///absolute/path/to/file.
 
 *** ~hacke-typer-remove-comments~
-If set to ~t~, remove comments from files. For now, this only works without
-prefix argument, i.e. when using a file from ~hacker-typer-files~.
+If set to ~t~, remove comments from files using an asynchronous process.
 
 *** ~hacker-typer-show-hackerman~
 If set to ~t~, shaw hackerman when calling ~M-x hacker-typer~.
 
 *** ~hacker-typer-type-rate~
 How many characters to type out per keystroke. Can be set to:
- - ~'random~ (default): each keystroke inserts N characters, where N is randomly
+ - ~random~ (default): each keystroke inserts N characters, where N is randomly
    selected from ~hacker-typer-random-range~.
  - integer: types out this many characters per keystroke.
 
@@ -100,4 +107,6 @@ otherwise placing the folder under ~user-emacs-directory~.
    instead, but I'm not sure how to do that with a temporary buffer and I like
    that temp buffers quit easily (at least, with evil-mode).
 
- - Somewhat relatedly, it would be nice to resize the hackerman image.
+ - Somewhat relatedly, it would be nice to resize the hackerman image to fit
+   the window, though this might take away from the humor of the immediacy by
+   having to wait for the resize.
