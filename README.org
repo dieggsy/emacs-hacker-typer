@@ -1,5 +1,7 @@
 * emacs-hacker-typer
 [[https://melpa.org/#/hacker-typer][file:https://melpa.org/packages/hacker-typer-badge.svg]]
+[[https://stable.melpa.org/#/hacker-typer][file:https://stable.melpa.org/packages/hacker-typer-badge.svg]]
+[[https://www.gnu.org/licenses/gpl-3.0.txt][file:https://img.shields.io/badge/license-GPL_3-green.svg]]
 
 A customizable implementation of [[http://hackertyper.com][hackertyper.com]] in emacs.
 
