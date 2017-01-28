@@ -28,7 +28,7 @@
 ;;; Commentary:
 
 ;; This package provides a customizable implementation of hackertyper.com in
-;; emacs for your amusement. It opens a buffer in which typing any letter
+;; Emacs for your amusement. It opens a buffer in which typing any letter
 ;; inserts a piece of a specified or randomly chosen script. It can also pull
 ;; up a picture of "hackerman" on command.
 
@@ -171,7 +171,7 @@ With prefix argument ARG, prompt for a file to type."
 
 ;;;###autoload
 (defun hacker-typer-quit ()
-  "Kill hacker-typer buffers."
+  "Kill ‘hacker-typer’ buffers."
   (interactive)
   (when (get-buffer hacker-typer--previous-buffer)
     (kill-buffer hacker-typer--previous-buffer))
@@ -238,6 +238,7 @@ With prefix argument ARG, prompt for a file to type."
 
 ;;;###autoload
 (defun hacker-typer-clear-cache ()
+  "Delete all data in `hacker-typer-data-dir'."
   (interactive)
   (dolist (f (directory-files hacker-typer-data-dir t))
     (unless (file-directory-p f)
@@ -245,7 +246,7 @@ With prefix argument ARG, prompt for a file to type."
 
 ;; utils
 (defun hacker-typer--insert-contents (filename)
-  "Insert contents from FILENAME into hacker-typer buffer."
+  "Insert contents from FILENAME into ‘hacker-typer’ buffer."
   (let* ((rate-range (apply 'number-sequence hacker-typer-random-range))
          (inc-amount (if (eq hacker-typer-type-rate 'random)
                          (elt rate-range (random (length rate-range)))
@@ -256,7 +257,7 @@ With prefix argument ARG, prompt for a file to type."
     (setq hacker-typer--end (+ hacker-typer--start inc-amount))))
 
 (defun hacker-typer--set-mode (buffer-name)
-  "Set major mode for hacker-typer buffer named BUFFER-NAME based on buffer extension."
+  "Set major mode for ‘hacker-typer’ buffer named BUFFER-NAME based on buffer extension."
   (let ((name buffer-name)
         (mode nil))
     ;; Remove backup-suffixes from file name.
@@ -286,7 +287,10 @@ With prefix argument ARG, prompt for a file to type."
         (set-auto-mode-0 mode 'keep-mode-if-same)))))
 
 (defun hacker-typer--choose-file (&optional filename)
-  "Randomly choose file from `hacker-typer-files', downloading if necessary."
+  "Randomly choose file from `hacker-typer-files'.
+
+Downloads file and removes comments when necessary. If FILENAME
+is provided, use that file instead."
   (let* ((file-url (if filename
                        (concat "file://" (expand-file-name filename))
                      (elt hacker-typer-files
