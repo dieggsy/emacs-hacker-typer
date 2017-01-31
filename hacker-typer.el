@@ -1,4 +1,4 @@
-;;; hacker-typer.el --- Pretend to write code like a pro
+;;; hacker-typer.el --- Pretend to write code like a pro -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2017 by Diego A. Mundo
 ;; Author: Diego A. Mundo <diegoamundo@gmail.com>
