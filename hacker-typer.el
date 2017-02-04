@@ -1,13 +1,13 @@
 ;;; hacker-typer.el --- Pretend to write code like a pro -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2017 by Diego A. Mundo
+;; Copyright (C) 2017 Diego A. Mundo
 ;; Author: Diego A. Mundo <diegoamundo@gmail.com>
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Keywords: hacker typer multimedia games
-;; Package-Requires: ((async "20161103.1036"))
+;; Package-Requires: ((async "20161103.1036") (emacs "24"))
 
 ;; This file is not part of GNU Emacs.
 
