@@ -5,9 +5,9 @@
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Keywords: hacker typer multimedia games
-;; Package-Requires: ((async "20161103.1036") (emacs "24"))
+;; Package-Requires: ((emacs "24"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -33,8 +33,6 @@
 ;; up a picture of "hackerman" on command.
 
 ;;; Code:
-
-(require 'async)
 
 (defcustom hacker-typer-show-hackerman nil
   "If t, show hackerman on calling `hacker-typer'."
@@ -300,26 +298,21 @@ is provided, use that file instead."
          (hacker-file (concat hacker-typer-data-dir base-name))
          (hacker-file-nc (concat hacker-typer-data-dir base-name-nc)))
     ;; If file doesn't exist, get it
-    (unless (or hacker-typer-remove-comments (file-exists-p hacker-file))
+    (unless (or filename hacker-typer-remove-comments (file-exists-p hacker-file))
       (url-copy-file file-url hacker-file t))
     ;; If remove-comments is on and uncommented file doesn't exist, get it.
     (unless (or (not hacker-typer-remove-comments)
                 (file-exists-p hacker-file-nc))
       (url-copy-file file-url hacker-file-nc t)
-      ;; remove comments
-      (async-start
-       (lambda ()
-         (find-file hacker-file-nc)
-         (goto-char (point-min))
-         (let (kill-ring)
-           (comment-kill (count-lines (point-min) (point-max))))
-         ;; remove awkward newlines
-         (goto-char (point-min))
-         (while (re-search-forward "\n\n+" nil t) (replace-match "\n\n"))
-         ;; save and kill
-         (save-buffer))
-       'ignore))
-    ;; return appropriate file name.
+      ;; Remove comments.
+      (with-temp-file hacker-file-nc
+        (insert-file-contents hacker-file-nc)
+        (hacker-typer--set-mode hacker-file-nc)
+        (let (kill-ring)
+          (comment-kill (count-lines (point-min) (point-max))))
+        (goto-char (point-min))
+        (while (re-search-forward "\n\n+" nil t)
+          (replace-match "\n\n"))))
     (if hacker-typer-remove-comments
         hacker-file-nc
       hacker-file)))
