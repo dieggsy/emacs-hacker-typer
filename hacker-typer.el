@@ -211,11 +211,11 @@ With prefix argument ARG, prompt for a file to type."
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠄⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿"
   (interactive "P")
-  (let ((hacker-file (concat hacker-typer-data-dir "hackerman.png"))
-        (inhibit-message t))
-    ;; If file doesn't exist, get it.
-    (unless (file-exists-p hacker-file)
-      (url-copy-file "http://i.imgur.com/hpV2qGil.png" hacker-file t))
+  (let* ((hacker-dir (file-name-directory
+                      (or load-file-name buffer-file-name
+                          (locate-library "hacker-typer.el"))))
+         (hacker-file (expand-file-name "hackerman.png" hacker-dir))
+         (inhibit-message t))
     ;; Print file url to buffer and turn on iimage-mode
     (with-output-to-temp-buffer "*hackerman*"
       (princ (concat "file://" hacker-file)))
