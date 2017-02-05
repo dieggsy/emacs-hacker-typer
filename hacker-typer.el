@@ -210,20 +210,22 @@ With prefix argument ARG, prompt for a file to type."
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠄⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿"
   (interactive "P")
-  (let* ((hacker-dir (file-name-directory
-                      (or load-file-name buffer-file-name
-                          (locate-library "hacker-typer.el"))))
-         (hacker-file (expand-file-name "hackerman.png" hacker-dir))
-         (inhibit-message t))
-    ;; Print file url to buffer and turn on iimage-mode
-    (with-output-to-temp-buffer "*hackerman*"
-      (princ (concat "file://" hacker-file)))
-    (with-current-buffer "*hackerman*"
-      (iimage-mode))
-    ;; If prefix arg, delete other windows.
-    (when arg
-      (other-window 1)
-      (delete-other-windows))))
+  (let ((hacker-path (or load-file-name buffer-file-name)))
+    (when (or (not hacker-path)
+              (not (equal (file-name-nondirectory hacker-path)
+                          "hacker-typer.el")))
+      (setq hacker-path (locate-library "hacker-typer.el")))
+    (let ((hacker-file (expand-file-name "hackerman.png"
+                                         (file-name-directory hacker-path))))
+      ;; Print file url to buffer and turn on iimage-mode
+      (with-output-to-temp-buffer "*hackerman*"
+        (princ (concat "file://" hacker-file)))
+      (with-current-buffer "*hackerman*"
+        (iimage-mode))
+      ;; If prefix arg, delete other windows.
+      (when arg
+        (other-window 1)
+        (delete-other-windows)))))
 
 ;;;###autoload
 (defalias 'hackerman 'hacker-typer-hackerman)
