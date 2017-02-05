@@ -40,12 +40,11 @@
   :type 'boolean)
 
 (defcustom hacker-typer-data-dir
-  (let* ((parent-dir (if (require 'no-littering nil t)
+  (let* ((parent-dir (if (featurep 'no-littering)
                          no-littering-var-directory
                        user-emacs-directory))
          (std-dir (expand-file-name (convert-standard-filename "hacker-typer/")
                                     parent-dir)))
-    (make-directory std-dir t)
     std-dir)
   "Directory in which to store ‘hacker-typer’ files.
 
@@ -292,6 +291,7 @@ is provided, use that file instead."
          (base-name-nc (concat "no-comment-" base-name))
          (hacker-file (concat hacker-typer-data-dir base-name))
          (hacker-file-nc (concat hacker-typer-data-dir base-name-nc)))
+    (make-directory hacker-type-data-dir t)
     ;; If file doesn't exist, get it
     (unless (or filename hacker-typer-remove-comments (file-exists-p hacker-file))
       (url-copy-file file-url hacker-file t))
