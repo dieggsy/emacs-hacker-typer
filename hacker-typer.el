@@ -221,11 +221,6 @@ With prefix argument ARG, prompt for a file to type."
       (princ (concat "file://" hacker-file)))
     (with-current-buffer "*hackerman*"
       (iimage-mode))
-    ;; (other-window 1)
-    ;; ;; Readjust window if it's easy to
-    ;; (when (fboundp 'evil-window-set-width)
-    ;;   (evil-window-set-width 117))
-    ;; (other-window 1)
     ;; If prefix arg, delete other windows.
     (when arg
       (other-window 1)
