@@ -5,6 +5,8 @@
 
 A customizable implementation of [[http://hackertyper.com][hackertyper.com]] in emacs.
 
+[[file:hackerman.png]]
+
 ** Usage
  - Type ~M-x hacker-typer~ and get hacking! Or use ~C-u M-x hacker-typer~ to be
    prompted about the file to use.
