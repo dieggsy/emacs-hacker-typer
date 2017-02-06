@@ -5,7 +5,7 @@
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 1.0.3
+;; Version: 1.0.4
 ;; Keywords: hacker typer multimedia games
 ;; Package-Requires: ((emacs "24"))
 
@@ -293,7 +293,7 @@ is provided, use that file instead."
          (base-name-nc (concat "no-comment-" base-name))
          (hacker-file (concat hacker-typer-data-dir base-name))
          (hacker-file-nc (concat hacker-typer-data-dir base-name-nc)))
-    (make-directory hacker-type-data-dir t)
+    (make-directory hacker-typer-data-dir t)
     ;; If file doesn't exist, get it
     (unless (or filename hacker-typer-remove-comments (file-exists-p hacker-file))
       (url-copy-file file-url hacker-file t))
