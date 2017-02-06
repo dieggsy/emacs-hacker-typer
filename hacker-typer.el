@@ -5,7 +5,7 @@
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 1.0.4
+;; Version: 1.0.5
 ;; Keywords: hacker typer multimedia games
 ;; Package-Requires: ((emacs "24"))
 
@@ -171,7 +171,9 @@ With prefix argument ARG, prompt for a file to type."
     (define-key hacker-typer-map (kbd "DEL")
       `(lambda () (interactive) (hacker-typer--insert-contents ,hack-file)))
     (define-key hacker-typer-map [remap keyboard-quit] 'hacker-typer-quit)
-    (use-local-map hacker-typer-map)))
+    (use-local-map hacker-typer-map)
+    (when (fboundp 'evil-insert-state)
+      (evil-insert-state))))
 
 ;;;###autoload
 (defun hacker-typer-quit ()
