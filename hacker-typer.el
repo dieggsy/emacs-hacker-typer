@@ -158,9 +158,7 @@ With prefix argument ARG, prompt for a file to type."
         (funcall mode 0)))
     ;; rebind commands locally and and use map
     (dolist (cmd '(self-insert-command
-                   delete-backward-char
                    newline
-                   sp-backward-delete-char
                    left-char
                    right-char
                    previous-line
