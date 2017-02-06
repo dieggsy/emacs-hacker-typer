@@ -152,6 +152,7 @@ With prefix argument ARG, prompt for a file to type."
     ;; unbind annoying modes
     (dolist (mode '(agressive-indent-mode
                     smartparens-mode
+                    whitespace-mode
                     evil-smartparens-mode))
       (when (fboundp mode)
         (funcall mode 0)))
@@ -159,10 +160,16 @@ With prefix argument ARG, prompt for a file to type."
     (dolist (cmd '(self-insert-command
                    delete-backward-char
                    newline
-                   sp-backward-delete-char))
+                   sp-backward-delete-char
+                   left-char
+                   right-char
+                   previous-line
+                   next-line))
       (when (fboundp cmd)
         (define-key hacker-typer-map `[remap ,cmd]
-          `(lambda () (interactive) (hacker-typer--insert-contents ,hack-file))) ))
+          `(lambda () (interactive) (hacker-typer--insert-contents ,hack-file)))))
+    (define-key hacker-typer-map (kbd "DEL")
+      `(lambda () (interactive) (hacker-typer--insert-contents ,hack-file)))
     (define-key hacker-typer-map [remap keyboard-quit] 'hacker-typer-quit)
     (use-local-map hacker-typer-map)))
 
