@@ -61,7 +61,7 @@ blank buffer with the name of that file (with random characers prepended). It
 then creates a local map in which all insert, delete, and enter commands are
 rebound to insert pieces of the file according to ~hacker-typer-type-rate~.
 
-~M-x hackerman~ displays an humorous image of Rami Malek as "hackerman," by
+~M-x hackerman~ displays a humorous image of Rami Malek as "hackerman," by
 inserting the file path into a temporary buffer and calling ~iimage-mode~.
 
 *NOTE:* Modes that get could get in the way are turned off if bound, so let me
