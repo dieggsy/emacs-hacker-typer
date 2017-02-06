@@ -33,14 +33,18 @@ This package is on Melpa. To install using [[https://github.com/jwiegley/use-pac
 Alternatively, using [[https://github.com/quelpa/quelpa-use-package][quelpa-use-package]]:
 #+begin_src emacs-lisp
 (use-package hacker-typer
-  :quelpa (hacker-typer :fetcher github
-                        :repo "therockmandolinist/emacs-hacker-typer"))
+  :quelpa (hacker-typer
+           :fetcher github
+           :repo "therockmandolinist/emacs-hacker-typer"
+           :files (:defaults "hackerman.png")))
 #+end_src
 
 Or [[https://github.com/quelpa/quelpa][quelpa]]:
 #+begin_src emacs-lisp
-(quelpa '(hacker-typer :fetcher github
-                       :repo "therockmandolinist/emacs-hacker-typer"))
+(quelpa '(hacker-typer
+          :fetcher github
+          :repo "therockmandolinist/emacs-hacker-typer"
+          :files (:defaults "hackerman.png")))
 #+end_src
 
 Otherwise, download the files to somewhere on your load path, and enable
