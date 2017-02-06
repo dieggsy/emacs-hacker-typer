@@ -5,7 +5,7 @@
 ;; URL: http://github.com/therockmandolinist/emacs-hacker-typer
 ;; Git-Repository: git://github.com/therockmandolinist/emacs-hacker-typer.git
 ;; Created: 2016-01-20
-;; Version: 1.0.5
+;; Version: 1.0.6
 ;; Keywords: hacker typer multimedia games
 ;; Package-Requires: ((emacs "24"))
 
@@ -150,7 +150,7 @@ With prefix argument ARG, prompt for a file to type."
     (switch-to-buffer hacker-typer-buffer-name)
     (hacker-typer--set-mode hacker-typer-buffer-name)
     ;; unbind annoying modes
-    (dolist (mode '(agressive-indent-mode
+    (dolist (mode '(aggressive-indent-mode
                     smartparens-mode
                     whitespace-mode
                     evil-smartparens-mode))
